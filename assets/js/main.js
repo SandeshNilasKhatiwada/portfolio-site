@@ -209,102 +209,102 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(aboutSection);
   }
 
-// Video carousel functionality
-function initVideoCarousel() {
-  const carousel = document.querySelector(".video-carousel");
-  const prevButton = document.querySelector(".carousel-control.prev");
-  const nextButton = document.querySelector(".carousel-control.next");
-  const container = document.querySelector(".video-carousel-container");
+  // Video carousel functionality
+  function initVideoCarousel() {
+    const carousel = document.querySelector(".video-carousel");
+    const prevButton = document.querySelector(".carousel-control.prev");
+    const nextButton = document.querySelector(".carousel-control.next");
+    const container = document.querySelector(".video-carousel-container");
 
-  if (!carousel || !prevButton || !nextButton || !container) {
-    console.warn("Carousel elements not found");
-    return;
-  }
+    if (!carousel || !prevButton || !nextButton || !container) {
+      console.warn("Carousel elements not found");
+      return;
+    }
 
-  let currentSlide = 0;
-  const items = carousel.querySelectorAll(".carousel-item");
-  const totalItems = items.length;
-  let players = [];
+    let currentSlide = 0;
+    const items = carousel.querySelectorAll(".carousel-item");
+    const totalItems = items.length;
+    let players = [];
 
-  function getVisibleItems() {
-    const viewportWidth = window.innerWidth;
-    if (viewportWidth < 768) return 1;
-    if (viewportWidth < 1200) return 2;
-    return 3;
-  }
+    function getVisibleItems() {
+      const viewportWidth = window.innerWidth;
+      if (viewportWidth < 768) return 1;
+      if (viewportWidth < 1200) return 2;
+      return 3;
+    }
 
-  function updateCarousel() {
-    const visibleItems = getVisibleItems();
-    const itemWidth = container.offsetWidth / visibleItems;
-    const maxSlide = Math.max(0, totalItems - visibleItems);
-    
-    items.forEach(item => {
-      item.style.flex = `0 0 ${100 / visibleItems}%`;
-      item.style.maxWidth = `${100 / visibleItems}%`;
+    function updateCarousel() {
+      const visibleItems = getVisibleItems();
+      const itemWidth = container.offsetWidth / visibleItems;
+      const maxSlide = Math.max(0, totalItems - visibleItems);
+
+      items.forEach((item) => {
+        item.style.flex = `0 0 ${100 / visibleItems}%`;
+        item.style.maxWidth = `${100 / visibleItems}%`;
+      });
+
+      const offset = currentSlide * itemWidth;
+      carousel.style.transform = `translateX(-${offset}px)`;
+
+      prevButton.disabled = currentSlide <= 0;
+      nextButton.disabled = currentSlide >= maxSlide;
+      prevButton.style.opacity = currentSlide <= 0 ? "0.5" : "1";
+      nextButton.style.opacity = currentSlide >= maxSlide ? "0.5" : "1";
+    }
+
+    function moveCarousel(direction) {
+      const visibleItems = getVisibleItems();
+      const maxSlide = Math.max(0, totalItems - visibleItems);
+
+      if (direction === "next" && currentSlide < maxSlide) {
+        currentSlide++;
+      } else if (direction === "prev" && currentSlide > 0) {
+        currentSlide--;
+      }
+
+      updateCarousel();
+    }
+
+    prevButton.addEventListener("click", () => moveCarousel("prev"));
+    nextButton.addEventListener("click", () => moveCarousel("next"));
+
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        currentSlide = 0;
+        updateCarousel();
+      }, 100);
     });
 
-    const offset = currentSlide * itemWidth;
-    carousel.style.transform = `translateX(-${offset}px)`;
+    carousel.addEventListener("touchstart", (e) => {
+      const touch = e.touches[0];
+      let startX = touch.clientX;
+      let moved = false;
 
-    prevButton.disabled = currentSlide <= 0;
-    nextButton.disabled = currentSlide >= maxSlide;
-    prevButton.style.opacity = currentSlide <= 0 ? "0.5" : "1";
-    nextButton.style.opacity = currentSlide >= maxSlide ? "0.5" : "1";
-  }
+      const handleTouchMove = (e) => {
+        moved = true;
+        const currentX = e.touches[0].clientX;
+        const diff = startX - currentX;
 
-  function moveCarousel(direction) {
-    const visibleItems = getVisibleItems();
-    const maxSlide = Math.max(0, totalItems - visibleItems);
-    
-    if (direction === "next" && currentSlide < maxSlide) {
-      currentSlide++;
-    } else if (direction === "prev" && currentSlide > 0) {
-      currentSlide--;
-    }
-    
+        if (Math.abs(diff) > 50) {
+          moveCarousel(diff > 0 ? "next" : "prev");
+          startX = currentX;
+        }
+      };
+
+      const handleTouchEnd = () => {
+        carousel.removeEventListener("touchmove", handleTouchMove);
+        carousel.removeEventListener("touchend", handleTouchEnd);
+      };
+
+      carousel.addEventListener("touchmove", handleTouchMove);
+      carousel.addEventListener("touchend", handleTouchEnd);
+    });
+
+    // Initialize carousel
     updateCarousel();
   }
-
-  prevButton.addEventListener("click", () => moveCarousel("prev"));
-  nextButton.addEventListener("click", () => moveCarousel("next"));
-
-  let resizeTimeout;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      currentSlide = 0;
-      updateCarousel();
-    }, 100);
-  });
-
-  carousel.addEventListener("touchstart", (e) => {
-    const touch = e.touches[0];
-    let startX = touch.clientX;
-    let moved = false;
-
-    const handleTouchMove = (e) => {
-      moved = true;
-      const currentX = e.touches[0].clientX;
-      const diff = startX - currentX;
-
-      if (Math.abs(diff) > 50) {
-        moveCarousel(diff > 0 ? "next" : "prev");
-        startX = currentX;
-      }
-    };
-
-    const handleTouchEnd = () => {
-      carousel.removeEventListener("touchmove", handleTouchMove);
-      carousel.removeEventListener("touchend", handleTouchEnd);
-    };
-
-    carousel.addEventListener("touchmove", handleTouchMove);
-    carousel.addEventListener("touchend", handleTouchEnd);
-  });
-
-  // Initialize carousel
-  updateCarousel();
-}
 
   // Video Carousel functionality
   function initVideoCarousel() {
@@ -333,9 +333,9 @@ function initVideoCarousel() {
       const visibleItems = getVisibleItems();
       const itemWidth = container.offsetWidth / visibleItems;
       const maxSlide = Math.max(0, totalItems - visibleItems);
-      
+
       // Update items width
-      items.forEach(item => {
+      items.forEach((item) => {
         item.style.flex = `0 0 ${100 / visibleItems}%`;
         item.style.maxWidth = `${100 / visibleItems}%`;
       });
@@ -347,7 +347,7 @@ function initVideoCarousel() {
       // Update button states
       prevButton.disabled = currentSlide <= 0;
       nextButton.disabled = currentSlide >= maxSlide;
-      
+
       prevButton.style.opacity = currentSlide <= 0 ? "0.5" : "1";
       nextButton.style.opacity = currentSlide >= maxSlide ? "0.5" : "1";
     }
@@ -355,13 +355,13 @@ function initVideoCarousel() {
     function moveCarousel(direction) {
       const visibleItems = getVisibleItems();
       const maxSlide = Math.max(0, totalItems - visibleItems);
-      
+
       if (direction === "next" && currentSlide < maxSlide) {
         currentSlide++;
       } else if (direction === "prev" && currentSlide > 0) {
         currentSlide--;
       }
-      
+
       updateCarousel();
     }
 
@@ -386,18 +386,27 @@ function initVideoCarousel() {
     let touchStartX = 0;
     let touchEndX = 0;
 
-    carousel.addEventListener("touchstart", (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
+    carousel.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true },
+    );
 
-    carousel.addEventListener("touchend", (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const diff = touchStartX - touchEndX;
+    carousel.addEventListener(
+      "touchend",
+      (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
 
-      if (Math.abs(diff) > 50) { // Minimum swipe distance
-        moveCarousel(diff > 0 ? "next" : "prev");
-      }
-    }, { passive: true });
+        if (Math.abs(diff) > 50) {
+          // Minimum swipe distance
+          moveCarousel(diff > 0 ? "next" : "prev");
+        }
+      },
+      { passive: true },
+    );
   }
 
   // Initialize video carousel

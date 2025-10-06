@@ -4,15 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const navToggle = document.getElementById("nav-toggle");
   const navMenu = document.getElementById("nav-menu");
 
-  if (navToggle &    function openVideoModal(videoId, title) {
-      if (modal && modalFrame && modalTitle) {
-        modalTitle.textContent = title;
-        // Use YouTube's iframe API with additional parameters
-        modalFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0&modestbranding=1&enablejsapi=1`;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-      }
-    }u) {
+  if (navToggle && navMenu) {
     navToggle.addEventListener("click", function () {
       navMenu.classList.toggle("active");
       navToggle.classList.toggle("active");
@@ -217,132 +209,118 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(aboutSection);
   }
 
-// Video functionality for portfolio
-const initVideoPlayers = () => {
-  const modal = document.getElementById("videoModal");
-  const modalFrame = document.getElementById("modalVideoFrame");
-  const modalTitle = document.getElementById("modalVideoTitle");
-  const modalClose = document.getElementById("modalClose");
+// Video carousel functionality
+function initVideoCarousel() {
+  const carousel = document.querySelector(".video-carousel");
+  const prevButton = document.querySelector(".carousel-control.prev");
+  const nextButton = document.querySelector(".carousel-control.next");
+  const container = document.querySelector(".video-carousel-container");
 
-  if (!modal || !modalFrame || !modalTitle || !modalClose) {
-    console.warn("Video modal elements not found");
+  if (!carousel || !prevButton || !nextButton || !container) {
+    console.warn("Carousel elements not found");
     return;
   }
 
-  const handleVideoClick = (e) => {
-    e.preventDefault();
-    const target = e.currentTarget;
-    const videoId = target.getAttribute("data-video-id") ||
-                   target.closest("[data-video-id]")?.getAttribute("data-video-id");
-    
-    if (!videoId) {
-      console.warn("No video ID found for clicked element");
-      return;
-    }
+  let currentSlide = 0;
+  const items = carousel.querySelectorAll(".carousel-item");
+  const totalItems = items.length;
+  let players = [];
 
-    const projectTitle = target.closest(".video-card")?.querySelector("h4")?.textContent ||
-                       target.closest(".portfolio-item")?.querySelector(".portfolio-title")?.textContent ||
-                       "Project Demo";
-    
-    openVideoModal(videoId, projectTitle);
-  };
-
-  const openVideoModal = (videoId, title) => {
-    modalTitle.textContent = title;
-    modalFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`;
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden"; // Prevent background scrolling
-  };
-
-  const closeVideoModal = () => {
-    if (modalFrame.contentWindow) {
-      // Send stop command to YouTube iframe
-      modalFrame.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
-    }
-    modalFrame.src = "";
-    modal.style.display = "none";
-    document.body.style.overflow = ""; // Restore scrolling
-  };
-
-  // Play video button handlers
-  const playButtons = document.querySelectorAll(".play-video-btn, .video-thumbnail");
-  playButtons.forEach(button => button.addEventListener("click", handleVideoClick));
-
-  // Close modal handlers
-  modalClose.addEventListener("click", closeVideoModal);
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeVideoModal();
-  });
-
-  // Handle ESC key
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.style.display === "flex") closeVideoModal();
-  });
-};
-
-// Initialize video functionality when DOM is loaded
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initVideoPlayers);
-} else {
-  initVideoPlayers();
-}
-
-    // Close modal handlers
-    if (modalClose) {
-      modalClose.addEventListener("click", closeVideoModal);
-    }
-
-    if (modal) {
-      modal.addEventListener("click", function (e) {
-        if (e.target === modal) {
-          closeVideoModal();
-        }
-      });
-    }
-
-    // Escape key to close modal
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        closeVideoModal();
-      }
-    });
-
-    function openVideoModal(videoId, title) {
-      if (modal && modalFrame && modalTitle) {
-        modalTitle.textContent = title;
-        modalFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-        modal.classList.add("active");
-        document.body.style.overflow = "hidden"; // Prevent background scrolling
-      }
-    }
-
-    function closeVideoModal() {
-      if (modal && modalFrame) {
-        modal.classList.remove("active");
-        modalFrame.src = ""; // Stop video
-        document.body.style.overflow = ""; // Restore scrolling
-      }
-    }
-
-    // Make functions globally accessible for cleanup
-    window.closeVideoModal = closeVideoModal;
+  function getVisibleItems() {
+    const viewportWidth = window.innerWidth;
+    if (viewportWidth < 768) return 1;
+    if (viewportWidth < 1200) return 2;
+    return 3;
   }
 
-  // Initialize video players
-  initVideoPlayers();
+  function updateCarousel() {
+    const visibleItems = getVisibleItems();
+    const itemWidth = container.offsetWidth / visibleItems;
+    const maxSlide = Math.max(0, totalItems - visibleItems);
+    
+    items.forEach(item => {
+      item.style.flex = `0 0 ${100 / visibleItems}%`;
+      item.style.maxWidth = `${100 / visibleItems}%`;
+    });
+
+    const offset = currentSlide * itemWidth;
+    carousel.style.transform = `translateX(-${offset}px)`;
+
+    prevButton.disabled = currentSlide <= 0;
+    nextButton.disabled = currentSlide >= maxSlide;
+    prevButton.style.opacity = currentSlide <= 0 ? "0.5" : "1";
+    nextButton.style.opacity = currentSlide >= maxSlide ? "0.5" : "1";
+  }
+
+  function moveCarousel(direction) {
+    const visibleItems = getVisibleItems();
+    const maxSlide = Math.max(0, totalItems - visibleItems);
+    
+    if (direction === "next" && currentSlide < maxSlide) {
+      currentSlide++;
+    } else if (direction === "prev" && currentSlide > 0) {
+      currentSlide--;
+    }
+    
+    updateCarousel();
+  }
+
+  prevButton.addEventListener("click", () => moveCarousel("prev"));
+  nextButton.addEventListener("click", () => moveCarousel("next"));
+
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      currentSlide = 0;
+      updateCarousel();
+    }, 100);
+  });
+
+  carousel.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    let startX = touch.clientX;
+    let moved = false;
+
+    const handleTouchMove = (e) => {
+      moved = true;
+      const currentX = e.touches[0].clientX;
+      const diff = startX - currentX;
+
+      if (Math.abs(diff) > 50) {
+        moveCarousel(diff > 0 ? "next" : "prev");
+        startX = currentX;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      carousel.removeEventListener("touchmove", handleTouchMove);
+      carousel.removeEventListener("touchend", handleTouchEnd);
+    };
+
+    carousel.addEventListener("touchmove", handleTouchMove);
+    carousel.addEventListener("touchend", handleTouchEnd);
+  });
+
+  // Initialize carousel
+  updateCarousel();
+}
 
   // Video Carousel functionality
   function initVideoCarousel() {
     const carousel = document.querySelector(".video-carousel");
     const prevButton = document.querySelector(".carousel-control.prev");
     const nextButton = document.querySelector(".carousel-control.next");
+    const container = document.querySelector(".video-carousel-container");
 
-    if (!carousel || !prevButton || !nextButton) return;
+    if (!carousel || !prevButton || !nextButton || !container) {
+      console.warn("Carousel elements not found");
+      return;
+    }
 
-    let currentPosition = 0;
+    let currentSlide = 0;
     const items = carousel.querySelectorAll(".carousel-item");
-    const itemWidth = items[0].offsetWidth + 32; // Including gap
-    const maxPosition = -(items.length - getVisibleItems()) * itemWidth;
+    const totalItems = items.length;
 
     function getVisibleItems() {
       const viewportWidth = window.innerWidth;
@@ -351,39 +329,75 @@ if (document.readyState === "loading") {
       return 3;
     }
 
-    function updateCarouselPosition() {
-      carousel.style.transform = `translateX(${currentPosition}px)`;
+    function updateCarousel() {
+      const visibleItems = getVisibleItems();
+      const itemWidth = container.offsetWidth / visibleItems;
+      const maxSlide = Math.max(0, totalItems - visibleItems);
+      
+      // Update items width
+      items.forEach(item => {
+        item.style.flex = `0 0 ${100 / visibleItems}%`;
+        item.style.maxWidth = `${100 / visibleItems}%`;
+      });
+
+      // Calculate and apply transform
+      const offset = currentSlide * itemWidth;
+      carousel.style.transform = `translateX(-${offset}px)`;
 
       // Update button states
-      prevButton.style.opacity = currentPosition === 0 ? "0.5" : "1";
-      nextButton.style.opacity = currentPosition <= maxPosition ? "0.5" : "1";
+      prevButton.disabled = currentSlide <= 0;
+      nextButton.disabled = currentSlide >= maxSlide;
+      
+      prevButton.style.opacity = currentSlide <= 0 ? "0.5" : "1";
+      nextButton.style.opacity = currentSlide >= maxSlide ? "0.5" : "1";
     }
 
     function moveCarousel(direction) {
-      const step = itemWidth * (direction === "next" ? -1 : 1);
-      const newPosition = currentPosition + step;
-
-      if (newPosition <= 0 && newPosition >= maxPosition) {
-        currentPosition = newPosition;
-        updateCarouselPosition();
+      const visibleItems = getVisibleItems();
+      const maxSlide = Math.max(0, totalItems - visibleItems);
+      
+      if (direction === "next" && currentSlide < maxSlide) {
+        currentSlide++;
+      } else if (direction === "prev" && currentSlide > 0) {
+        currentSlide--;
       }
+      
+      updateCarousel();
     }
 
+    // Event listeners
     prevButton.addEventListener("click", () => moveCarousel("prev"));
     nextButton.addEventListener("click", () => moveCarousel("next"));
 
-    // Update carousel on window resize
+    // Resize handling with debounce
     let resizeTimeout;
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        currentPosition = 0;
-        updateCarouselPosition();
+        currentSlide = 0;
+        updateCarousel();
       }, 100);
     });
 
-    // Initialize button states
-    updateCarouselPosition();
+    // Initialize carousel
+    updateCarousel();
+
+    // Touch support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carousel.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > 50) { // Minimum swipe distance
+        moveCarousel(diff > 0 ? "next" : "prev");
+      }
+    }, { passive: true });
   }
 
   // Initialize video carousel

@@ -34,16 +34,14 @@
           "demo" %} {% for project in video_projects %}
           <div class="carousel-item">
             <div class="video-card">
-              <div
-                class="video-thumbnail"
-                data-video-id="{{ project.video_id }}"
-              >
-                <img src="{{ project.image }}" alt="{{ project.title }}" />
-                <div class="play-button">
-                  <i class="fas fa-play"></i>
-                </div>
-                <div class="video-overlay">
-                  <span class="watch-text">Watch Demo</span>
+              <div class="video-player-container">
+                <div class="video-player" id="player-{{ project.video_id }}">
+                  <iframe
+                    src="https://www.youtube.com/embed/{{ project.video_id }}?rel=0&showinfo=0&modestbranding=1"
+                    frameborder="0"
+                    allowfullscreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  ></iframe>
                 </div>
               </div>
               <div class="video-content">
@@ -55,18 +53,13 @@
                   {% endfor %}
                 </div>
                 <div class="video-actions">
-                  <button
-                    class="btn btn-primary btn-sm play-video-btn"
-                    data-video-id="{{ project.video_id }}"
-                  >
-                    <i class="fas fa-play"></i> Watch Demo
-                  </button>
                   <a
                     href="{{ project.url }}"
                     target="_blank"
                     class="btn btn-secondary btn-sm"
+                    title="Watch on YouTube"
                   >
-                    <i class="fab fa-youtube"></i> YouTube
+                    <i class="fab fa-youtube"></i> Watch on YouTube
                   </a>
                 </div>
               </div>

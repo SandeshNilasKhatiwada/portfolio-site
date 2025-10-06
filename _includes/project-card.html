@@ -1,56 +1,40 @@
-<div
+<article
   class="portfolio-item featured"
   data-aos="fade-up"
   data-aos-delay="{{ forloop.index0 | times: 100 }}"
+  role="listitem"
 >
-  <div class="portfolio-image">
-    {% if project.video_id %}
-    <!-- Video thumbnail with play button -->
-    <div class="video-thumbnail" data-video-id="{{ project.video_id }}">
-      <img src="{{ project.image }}" alt="{{ project.title }}" />
-      <div class="play-button">
-        <i class="fas fa-play"></i>
-      </div>
-      <div class="video-overlay">
-        <span class="watch-text">Watch Demo</span>
-      </div>
-    </div>
-    {% else %}
-    <!-- Regular image for non-video projects -->
-    {% if project.image contains 'http' %}
-    <img src="{{ project.image }}" alt="{{ project.title }}" />
-    {% else %}
-    <img src="{{ project.image | relative_url }}" alt="{{ project.title }}" />
-    {% endif %}
-    <div class="portfolio-overlay">
-      <a href="{{ project.url }}" class="portfolio-link" target="_blank">
-        <i class="fas fa-external-link-alt"></i>
-      </a>
-    </div>
-    {% endif %}
-  </div>
   <div class="portfolio-content">
-    <h3 class="portfolio-title">{{ project.title }}</h3>
+    <header>
+      <h3 class="portfolio-title">{{ project.title }}</h3>
+    </header>
     <p class="portfolio-description">{{ project.description }}</p>
-    <div class="portfolio-tags">
+
+    <div class="portfolio-tags" role="list" aria-label="Technologies used">
       {% for tag in project.tags %}
-      <span class="tag">{{ tag }}</span>
+      <span class="tag" role="listitem">{{ tag }}</span>
       {% endfor %}
     </div>
+
     {% if project.video_id %}
     <div class="portfolio-actions">
       <button
         class="btn btn-primary btn-sm play-video-btn"
         data-video-id="{{ project.video_id }}"
+        aria-label="Play demo video for {{ project.title }}"
+        title="Watch {{ project.title }} demo"
       >
-        <i class="fas fa-play"></i> Watch Demo
+        <i class="fas fa-play" aria-hidden="true"></i> Watch Demo
       </button>
       <a
         href="{{ project.url }}"
         target="_blank"
+        rel="noopener noreferrer"
         class="btn btn-secondary btn-sm"
+        aria-label="View {{ project.title }} on YouTube (opens in new tab)"
+        title="Watch full video on YouTube"
       >
-        <i class="fab fa-youtube"></i> YouTube
+        <i class="fab fa-youtube" aria-hidden="true"></i> YouTube
       </a>
     </div>
     {% else %}
@@ -58,11 +42,15 @@
       <a
         href="{{ project.url }}"
         target="_blank"
+        rel="noopener noreferrer"
         class="btn btn-primary btn-sm"
+        aria-label="View live site for {{ project.title }} (opens in new tab)"
+        title="Visit {{ project.title }} website"
       >
-        <i class="fas fa-external-link-alt"></i> View Live Site
+        <i class="fas fa-external-link-alt" aria-hidden="true"></i> View Live
+        Site
       </a>
     </div>
     {% endif %}
   </div>
-</div>
+</article>

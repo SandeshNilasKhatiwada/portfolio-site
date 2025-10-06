@@ -1,14 +1,18 @@
-<section class="portfolio" id="portfolio">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Portfolio</h2>
+<section class="portfolio" id="portfolio" aria-labelledby="portfolio-title">
+  <div class="container-fluid">
+    <header class="section-header">
+      <h2 id="portfolio-title" class="section-title">Portfolio</h2>
       <p class="section-subtitle">Professional Work Experience</p>
-    </div>
+    </header>
 
     <!-- International Projects Section -->
-    <div class="portfolio-category websites-section">
+    <div class="portfolio-category">
       <h3 class="category-title">International Client Projects</h3>
-      <div class="portfolio-grid featured-projects">
+      <div
+        class="portfolio-grid featured-projects"
+        role="list"
+        aria-label="International client projects"
+      >
         {% assign international_projects = site.data.projects | where:
         "category", "international" %} {% for project in international_projects
         %} {% include project-card.html project=project %} {% endfor %}
@@ -16,9 +20,13 @@
     </div>
 
     <!-- Nepal Projects Section -->
-    <div class="portfolio-category websites-section">
+    <div class="portfolio-category">
       <h3 class="category-title">Nepal-Based Projects</h3>
-      <div class="portfolio-grid featured-projects">
+      <div
+        class="portfolio-grid featured-projects"
+        role="list"
+        aria-label="Nepal-based projects"
+      >
         {% assign nepal_projects = site.data.projects | where: "category",
         "nepal" %} {% for project in nepal_projects %} {% include
         project-card.html project=project %} {% endfor %}
@@ -28,11 +36,15 @@
     <!-- Video Projects Section -->
     <div class="portfolio-category video-projects-section">
       <h3 class="category-title">Project Demonstrations</h3>
-      <div class="video-carousel-container">
-        <div class="video-carousel">
+      <div
+        class="video-carousel-container"
+        role="region"
+        aria-label="Project demonstration videos"
+      >
+        <div class="video-carousel" id="video-carousel">
           {% assign video_projects = site.data.projects | where: "category",
           "demo" %} {% for project in video_projects %}
-          <div class="carousel-item">
+          <article class="carousel-item" role="listitem">
             <div class="video-card">
               <div class="video-player-container">
                 <div class="video-player" id="player-{{ project.video_id }}">
@@ -41,6 +53,7 @@
                     frameborder="0"
                     allowfullscreen
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    title="{{ project.title }} video demonstration"
                   ></iframe>
                 </div>
               </div>
@@ -56,22 +69,33 @@
                   <a
                     href="{{ project.url }}"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="btn btn-secondary btn-sm"
-                    title="Watch on YouTube"
+                    title="Watch {{ project.title }} on YouTube"
+                    aria-label="Watch {{ project.title }} on YouTube (opens in new tab)"
                   >
-                    <i class="fab fa-youtube"></i> Watch on YouTube
+                    <i class="fab fa-youtube" aria-hidden="true"></i> Watch on
+                    YouTube
                   </a>
                 </div>
               </div>
             </div>
-          </div>
+          </article>
           {% endfor %}
         </div>
-        <button class="carousel-control prev">
-          <i class="fas fa-chevron-left"></i>
+        <button
+          class="carousel-control prev"
+          aria-label="Previous video"
+          title="Show previous videos"
+        >
+          <i class="fas fa-chevron-left" aria-hidden="true"></i>
         </button>
-        <button class="carousel-control next">
-          <i class="fas fa-chevron-right"></i>
+        <button
+          class="carousel-control next"
+          aria-label="Next video"
+          title="Show next videos"
+        >
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
         </button>
       </div>
     </div>

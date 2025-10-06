@@ -1,0 +1,11 @@
+- title: "Full-Stack Development"
+  icon: "code"
+  description: "Building complete web applications from frontend to backend with modern technologies and best practices."
+
+- title: "UI/UX Design"
+  icon: "design"
+  description: "Creating intuitive and beautiful user interfaces with focus on user experience and modern design principles."
+
+- title: "Data Visualization"
+  icon: "chart"
+  description: "Transforming complex data into meaningful insights through interactive charts and visual representations."

@@ -1,0 +1,68 @@
+<div
+  class="portfolio-item featured"
+  data-aos="fade-up"
+  data-aos-delay="{{ forloop.index0 | times: 100 }}"
+>
+  <div class="portfolio-image">
+    {% if project.video_id %}
+    <!-- Video thumbnail with play button -->
+    <div class="video-thumbnail" data-video-id="{{ project.video_id }}">
+      <img src="{{ project.image }}" alt="{{ project.title }}" />
+      <div class="play-button">
+        <i class="fas fa-play"></i>
+      </div>
+      <div class="video-overlay">
+        <span class="watch-text">Watch Demo</span>
+      </div>
+    </div>
+    {% else %}
+    <!-- Regular image for non-video projects -->
+    {% if project.image contains 'http' %}
+    <img src="{{ project.image }}" alt="{{ project.title }}" />
+    {% else %}
+    <img src="{{ project.image | relative_url }}" alt="{{ project.title }}" />
+    {% endif %}
+    <div class="portfolio-overlay">
+      <a href="{{ project.url }}" class="portfolio-link" target="_blank">
+        <i class="fas fa-external-link-alt"></i>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+  <div class="portfolio-content">
+    <h3 class="portfolio-title">{{ project.title }}</h3>
+    <p class="portfolio-description">{{ project.description }}</p>
+    <div class="portfolio-tags">
+      {% for tag in project.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% if project.video_id %}
+    <div class="portfolio-actions">
+      <button
+        class="btn btn-primary btn-sm play-video-btn"
+        data-video-id="{{ project.video_id }}"
+      >
+        <i class="fas fa-play"></i> Watch Demo
+      </button>
+      <a
+        href="{{ project.url }}"
+        target="_blank"
+        class="btn btn-secondary btn-sm"
+      >
+        <i class="fab fa-youtube"></i> YouTube
+      </a>
+    </div>
+    {% else %}
+    <div class="portfolio-actions">
+      <a
+        href="{{ project.url }}"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+      >
+        <i class="fas fa-external-link-alt"></i> View Live Site
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>

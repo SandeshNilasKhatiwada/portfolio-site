@@ -1,0 +1,13 @@
+.footer {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.footer-content {
+  p {
+    margin: 0;
+    color: var(--light-gray);
+  }
+}

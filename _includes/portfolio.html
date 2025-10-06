@@ -1,0 +1,78 @@
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Portfolio</h2>
+      <p class="section-subtitle">Professional Work Experience</p>
+    </div>
+
+    <!-- International Projects Section -->
+    <div class="portfolio-category websites-section">
+      <h3 class="category-title">International Client Projects</h3>
+      <div class="portfolio-grid featured-projects">
+        {% assign international_projects = site.data.projects | where: "category", "international" %}
+        {% for project in international_projects %}
+        {% include project-card.html project=project %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Nepal Projects Section -->
+    <div class="portfolio-category websites-section">
+      <h3 class="category-title">Nepal-Based Projects</h3>
+      <div class="portfolio-grid featured-projects">
+        {% assign nepal_projects = site.data.projects | where: "category", "nepal" %}
+        {% for project in nepal_projects %}
+        {% include project-card.html project=project %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Video Projects Section -->
+    <div class="portfolio-category video-projects-section">
+      <h3 class="category-title">Project Demonstrations</h3>
+      <div class="video-carousel-container">
+        <div class="video-carousel">
+          {% assign video_projects = site.data.projects | where: "category", "demo" %}
+          {% for project in video_projects %}
+          <div class="carousel-item">
+            <div class="video-card">
+              <div class="video-thumbnail" data-video-id="{{ project.video_id }}">
+                <img src="{{ project.image }}" alt="{{ project.title }}" />
+                <div class="play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-overlay">
+                  <span class="watch-text">Watch Demo</span>
+                </div>
+              </div>
+              <div class="video-content">
+                <h4>{{ project.title }}</h4>
+                <p>{{ project.description }}</p>
+                <div class="video-tags">
+                  {% for tag in project.tags %}
+                  <span class="tag">{{ tag }}</span>
+                  {% endfor %}
+                </div>
+                <div class="video-actions">
+                  <button class="btn btn-primary btn-sm play-video-btn" data-video-id="{{ project.video_id }}">
+                    <i class="fas fa-play"></i> Watch Demo
+                  </button>
+                  <a href="{{ project.url }}" target="_blank" class="btn btn-secondary btn-sm">
+                    <i class="fab fa-youtube"></i> YouTube
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-control prev">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-control next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

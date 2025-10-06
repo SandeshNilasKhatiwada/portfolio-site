@@ -1,0 +1,27 @@
+- title: "Web Developer"
+  company: "Relevant Research"
+  period: "Jul 2024 – Present"
+  description: "Full-time remote web developer specializing in modern web technologies including Tailwind CSS, Ruby, and advanced frontend frameworks. Building research platforms and data-driven applications."
+  location: "Maryland, United States · Remote"
+  skills: ["Tailwind CSS", "Ruby", "JavaScript", "React"]
+
+- title: "Web Developer"
+  company: "DanpheLink Pvt. Ltd."
+  period: "Feb 2025 – Aug 2025"
+  description: "Full-time web developer working on-site, developing comprehensive web solutions and maintaining client projects using modern technologies."
+  location: "Kamalpokhari, Kathmandu, Nepal · On-site"
+  skills: ["Web Development", "Frontend", "Backend"]
+
+- title: "Junior Web Developer"
+  company: "DanpheLink Pvt. Ltd."
+  period: "Feb 2025 – Apr 2025"
+  description: "Junior web developer role focusing on frontend development with Next.js and Tailwind CSS. Contributed to various client projects and learned advanced development practices."
+  location: "Kamalpokhari, Kathmandu, Nepal"
+  skills: ["Tailwind CSS", "Next.js", "React"]
+
+- title: "Back End Developer (Internship)"
+  company: "GreenByte Technologies"
+  period: "Jan 2024 – Jun 2024"
+  description: "Responsible for maintaining backend systems and managing APIs for various projects. Gained hands-on experience with server-side development and database management."
+  location: "Kathmandu, Bāgmatī, Nepal · Remote"
+  skills: ["Node.js", "Express.js", "API Development"]

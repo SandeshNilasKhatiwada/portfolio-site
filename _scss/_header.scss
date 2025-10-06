@@ -1,0 +1,121 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  @include transition();
+  
+  &.scrolled {
+    @include card-shadow;
+  }
+}
+
+.navbar {
+  padding: 1rem 0;
+}
+
+.nav-container {
+  @include flex-between;
+  max-width: var(--desktop);
+  margin: 0 auto;
+  padding: var(--container-padding);
+}
+
+.nav-logo {
+  font-family: var(--font-accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  text-decoration: none;
+  @include transition();
+  
+  &:hover {
+    color: var(--primary-color);
+  }
+}
+
+.nav-menu {
+  @include flex-center;
+  list-style: none;
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background-color: var(--white-color);
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    @include transition(left);
+    
+    &.active {
+      left: 0;
+    }
+  }
+}
+
+.nav-link {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+  @include transition();
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    @include transition(width);
+  }
+  
+  &:hover,
+  &.active {
+    color: var(--primary-color);
+    
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  
+  @media (max-width: 768px) {
+    display: flex;
+  }
+  
+  .bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    margin: 3px 0;
+    @include transition();
+  }
+  
+  &.active {
+    .bar:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .bar:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .bar:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+  }
+}

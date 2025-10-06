@@ -1,0 +1,114 @@
+# International Client Projects
+- title: "Detention Pregnancy Tracker - WRC"
+  description: "Developed for Women's Refugee Commission (WRC) in the US, this critical web application tracks and monitors pregnancy cases in detention centers, helping ensure proper care and support for detained pregnant women."
+  image: "/assets/images/wrc-project.jpg"
+  tags: ["React", "Node.js", "Healthcare", "Social Impact"]
+  url: "https://detentionpregnancytracker.com/"
+  category: "international"
+  featured: true
+
+- title: "Relevant Research Platform"
+  description: "Contributed to the development and maintenance of Relevant Research's primary platform, implementing advanced research tools and data visualization features for academic research."
+  image: "/assets/images/relevant-research.jpg"
+  tags: ["Full Stack", "Research Tools", "Data Visualization"]
+  url: "https://relevant-research.com"
+  category: "international"
+  featured: true
+
+- title: "Michael Paarlberg Academic Portfolio"
+  description: "Designed and developed a professional portfolio website for Michael Paarlberg, featuring a clean, academic-focused design with publication management and content organization."
+  image: "/assets/images/paarlberg.jpg"
+  tags: ["Web Design", "Content Management", "Academic"]
+  url: "https://michaelpaarlberg.org/"
+  category: "international"
+  featured: true
+
+- title: "Lory Rosenberg Legal"
+  description: "Created a professional website for immigration law expert Lory Rosenberg, integrating content management systems and legal resource organization."
+  image: "/assets/images/rosenberg.jpg"
+  tags: ["Legal Tech", "CMS", "Professional Services"]
+  url: "https://loryrosenberg.com/"
+  category: "international"
+  featured: true
+
+- title: "ImmProf Legal Blog Platform"
+  description: "Developed a specialized blogging platform for immigration professionals, featuring advanced content management, user authentication, and resource sharing capabilities."
+  image: "/assets/images/immprof.jpg"
+  tags: ["Blogging Platform", "Legal Tech", "Content Management"]
+  url: "https://immprof.com"
+  category: "international"
+  featured: true
+
+# Nepal-Based Projects
+- title: "Naima Nepal NGO Platform"
+  description: "Developed the official website for Naima Nepal, incorporating modern design principles, donation management, and robust content management capabilities for this prominent non-profit organization."
+  image: "/assets/images/naima-nepal.jpg"
+  tags: ["Web Development", "Non-Profit", "Donation Management"]
+  url: "https://naimanepal.org"
+  category: "nepal"
+  featured: true
+
+- title: "DanpheLink Technology Corporate Site"
+  description: "Created and maintained the corporate website for DanpheLink Technology, showcasing their services, portfolio, and technological expertise with a modern, professional design."
+  image: "/assets/images/danphelink-tech.jpg"
+  tags: ["Corporate Website", "Technology", "UI/UX"]
+  url: "https://danphelinktechnology.com"
+  category: "nepal"
+  featured: true
+
+- title: "DanpheLink Nepal Branch"
+  description: "Developed the Nepal branch website for DanpheLink, featuring localized content and services while maintaining brand consistency and user experience."
+  image: "/assets/images/danphelink-nepal.jpg"
+  tags: ["Web Development", "Localization", "Corporate"]
+  url: "https://danphelink.com.np"
+  category: "nepal"
+  featured: true
+
+- title: "Garuda News Portal"
+  description: "Built and deployed the Garuda news portal, implementing advanced features like real-time updates, article management, and user engagement tools for seamless content delivery."
+  image: "/assets/images/garuda.jpg"
+  tags: ["News Portal", "Content Management", "Real-time Updates"]
+  url: "https://garuda.com.np"
+  category: "nepal"
+  featured: true
+
+- title: "D Production Media Platform"
+  description: "Designed and developed the D Production website, incorporating multimedia content management, portfolio showcase, and video streaming features for the production company."
+  image: "/assets/images/dproduction.jpg"
+  tags: ["Media", "Portfolio", "Video Streaming"]
+  url: "https://dproduction.com.np"
+  category: "nepal"
+  featured: true
+
+# Video Project Demonstrations
+- title: "Marketplace Mobile App"
+  description: "A fully functional marketplace mobile application built with Flutter, featuring user authentication, product listings, and secure payment integration."
+  image: "https://img.youtube.com/vi/Tkyaw5qRZfs/maxresdefault.jpg"
+  video_id: "Tkyaw5qRZfs"
+  tags: ["Flutter", "Dart", "Mobile App", "Marketplace"]
+  url: "https://www.youtube.com/watch?v=Tkyaw5qRZfs"
+  category: "demo"
+
+- title: "E-commerce Platform Demo"
+  description: "A comprehensive e-commerce solution with advanced features including real-time inventory management, secure payments, and admin dashboard."
+  image: "https://img.youtube.com/vi/nOdy4x-Zz9M/maxresdefault.jpg"
+  video_id: "nOdy4x-Zz9M"
+  tags: ["E-commerce", "Full Stack", "Payment Gateway"]
+  url: "https://www.youtube.com/watch?v=nOdy4x-Zz9M"
+  category: "demo"
+
+- title: "Food Delivery System"
+  description: "A complete food ordering and delivery system with real-time order tracking, restaurant management, and delivery routing."
+  image: "https://img.youtube.com/vi/iR-cAnxjNLU/maxresdefault.jpg"
+  video_id: "iR-cAnxjNLU"
+  tags: ["Food Delivery", "React", "Node.js"]
+  url: "https://www.youtube.com/watch?v=iR-cAnxjNLU"
+  category: "demo"
+
+- title: "Project Management Platform"
+  description: "A modern project management solution with task tracking, team collaboration, and resource management features."
+  image: "https://img.youtube.com/vi/BBZsRLs81OE/maxresdefault.jpg"
+  video_id: "BBZsRLs81OE"
+  tags: ["Project Management", "Collaboration", "Full Stack"]
+  url: "https://www.youtube.com/watch?v=BBZsRLs81OE"
+  category: "demo"

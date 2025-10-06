@@ -1,0 +1,73 @@
+# Site settings
+title: "Sandesh Nilas Khatiwada"
+description: "Full-stack developer building scalable, modern, and elegant digital solutions."
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+
+# Author information
+author:
+  name: "Sandesh Nilas Khatiwada"
+  email: "sandeshnilaskhatiwada@gmail.com"
+  linkedin: "https://linkedin.com/in/sandesh-nilas-khatiwada"
+  github: "https://github.com/sandesh-nilas"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Sass configuration
+sass:
+  sass_dir: _scss
+  style: compressed
+
+# Collections
+collections:
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Include files
+include:
+  - _pages
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# SEO settings
+twitter:
+  username: sandesh_nilas
+  card: summary_large_image
+
+facebook:
+  publisher: "Sandesh Nilas Khatiwada"
+
+social:
+  name: "Sandesh Nilas Khatiwada"
+  links:
+    - "https://linkedin.com/in/sandesh-nilas-khatiwada"
+    - "https://github.com/sandesh-nilas"
+# Google Analytics (uncomment and add your tracking ID)
+# google_analytics: UA-XXXXXXXX-X
+
+# Contact form settings (for services like Formspree)
+# formspree_endpoint: "https://formspree.io/f/your-form-id"

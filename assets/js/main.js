@@ -4,7 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const navToggle = document.getElementById("nav-toggle");
   const navMenu = document.getElementById("nav-menu");
 
-  if (navToggle && navMenu) {
+  if (navToggle &    function openVideoModal(videoId, title) {
+      if (modal && modalFrame && modalTitle) {
+        modalTitle.textContent = title;
+        // Use YouTube's iframe API with additional parameters
+        modalFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0&modestbranding=1&enablejsapi=1`;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      }
+    }u) {
     navToggle.addEventListener("click", function () {
       navMenu.classList.toggle("active");
       navToggle.classList.toggle("active");
@@ -209,31 +217,75 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(aboutSection);
   }
 
-  // Video functionality for portfolio
-  function initVideoPlayers() {
-    const modal = document.getElementById("videoModal");
-    const modalFrame = document.getElementById("modalVideoFrame");
-    const modalTitle = document.getElementById("modalVideoTitle");
-    const modalClose = document.getElementById("modalClose");
+// Video functionality for portfolio
+const initVideoPlayers = () => {
+  const modal = document.getElementById("videoModal");
+  const modalFrame = document.getElementById("modalVideoFrame");
+  const modalTitle = document.getElementById("modalVideoTitle");
+  const modalClose = document.getElementById("modalClose");
 
-    // Play video button handlers
-    const playButtons = document.querySelectorAll(
-      ".play-video-btn, .video-thumbnail",
-    );
+  if (!modal || !modalFrame || !modalTitle || !modalClose) {
+    console.warn("Video modal elements not found");
+    return;
+  }
 
-    playButtons.forEach((button) => {
-      button.addEventListener("click", function (e) {
-        e.preventDefault();
-        const videoId =
-          this.getAttribute("data-video-id") ||
-          this.closest("[data-video-id]").getAttribute("data-video-id");
-        const projectTitle =
-          this.closest(".portfolio-item").querySelector(
-            ".portfolio-title",
-          ).textContent;
-        openVideoModal(videoId, projectTitle);
-      });
-    });
+  const handleVideoClick = (e) => {
+    e.preventDefault();
+    const target = e.currentTarget;
+    const videoId = target.getAttribute("data-video-id") ||
+                   target.closest("[data-video-id]")?.getAttribute("data-video-id");
+    
+    if (!videoId) {
+      console.warn("No video ID found for clicked element");
+      return;
+    }
+
+    const projectTitle = target.closest(".video-card")?.querySelector("h4")?.textContent ||
+                       target.closest(".portfolio-item")?.querySelector(".portfolio-title")?.textContent ||
+                       "Project Demo";
+    
+    openVideoModal(videoId, projectTitle);
+  };
+
+  const openVideoModal = (videoId, title) => {
+    modalTitle.textContent = title;
+    modalFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`;
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden"; // Prevent background scrolling
+  };
+
+  const closeVideoModal = () => {
+    if (modalFrame.contentWindow) {
+      // Send stop command to YouTube iframe
+      modalFrame.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+    }
+    modalFrame.src = "";
+    modal.style.display = "none";
+    document.body.style.overflow = ""; // Restore scrolling
+  };
+
+  // Play video button handlers
+  const playButtons = document.querySelectorAll(".play-video-btn, .video-thumbnail");
+  playButtons.forEach(button => button.addEventListener("click", handleVideoClick));
+
+  // Close modal handlers
+  modalClose.addEventListener("click", closeVideoModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeVideoModal();
+  });
+
+  // Handle ESC key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.style.display === "flex") closeVideoModal();
+  });
+};
+
+// Initialize video functionality when DOM is loaded
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initVideoPlayers);
+} else {
+  initVideoPlayers();
+}
 
     // Close modal handlers
     if (modalClose) {

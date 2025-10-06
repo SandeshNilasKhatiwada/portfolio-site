@@ -3,15 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
     <title>
-      {% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}
+      Sandesh Nilas Khatiwada - Full Stack Developer | Web & Mobile Development
+      Expert
     </title>
     <meta
+      name="title"
+      content="Sandesh Nilas Khatiwada - Full Stack Developer | Web & Mobile Development Expert"
+    />
+    <meta
       name="description"
-      content="{{ page.description | default: site.description }}"
+      content="Expert Full Stack Developer specializing in web and mobile development. Experienced in React, Node.js, Flutter, and modern web technologies. View my portfolio of international projects."
+    />
+    <meta
+      name="keywords"
+      content="full stack developer, web developer, software engineer, frontend developer, backend developer, React developer, Node.js developer, Nepal developer, international projects, mobile app developer"
+    />
+    <meta name="author" content="Sandesh Nilas Khatiwada" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ site.url }}" />
+    <meta
+      property="og:title"
+      content="Sandesh Nilas Khatiwada - Full Stack Developer | Web & Mobile Development Expert"
+    />
+    <meta
+      property="og:description"
+      content="Expert Full Stack Developer specializing in web and mobile development. Experienced in React, Node.js, Flutter, and modern web technologies. View my portfolio of international projects."
+    />
+    <meta
+      property="og:image"
+      content="{{ '/assets/images/profile.jpeg' | absolute_url }}"
     />
 
-    <!-- Fonts -->
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="{{ site.url }}" />
+    <meta
+      property="twitter:title"
+      content="Sandesh Nilas Khatiwada - Full Stack Developer | Web & Mobile Development Expert"
+    />
+    <meta
+      property="twitter:description"
+      content="Expert Full Stack Developer specializing in web and mobile development. Experienced in React, Node.js, Flutter, and modern web technologies. View my portfolio of international projects."
+    />
+    <meta
+      property="twitter:image"
+      content="{{ '/assets/images/profile.jpeg' | absolute_url }}"
+    />
+
+    <!-- Technical Meta Tags -->
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="theme-color" content="#FF7A00" />
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}" <!-- Fonts -- />
     <link
       href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&display=swap"
       rel="stylesheet"
@@ -46,10 +94,65 @@
             <i class="fas fa-times"></i>
           </button>
         </div>
-        <iframe id="modalVideoFrame" src="" allowfullscreen></iframe>
+        <div class="video-modal-body">
+          <iframe
+            id="modalVideoFrame"
+            src=""
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
       </div>
     </div>
 
     <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Sandesh Nilas Khatiwada",
+        "jobTitle": "Full Stack Developer",
+        "url": "{{ site.url }}",
+        "image": "{{ '/assets/images/profile.jpeg' | absolute_url }}",
+        "sameAs": [
+          "https://www.linkedin.com/in/sandesh-nilas-khatiwada-9b503b280",
+          "https://github.com/SandeshNilasKhatiwada"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Relevant Research"
+        },
+        "knowsAbout": [
+          "Full Stack Development",
+          "Web Development",
+          "Mobile App Development",
+          "React",
+          "Node.js",
+          "Flutter",
+          "Frontend Development",
+          "Backend Development",
+          "Database Design",
+          "API Development"
+        ],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Full Stack Developer",
+          "skills": [
+            "React.js",
+            "Node.js",
+            "Flutter",
+            "JavaScript",
+            "Python",
+            "Database Management",
+            "RESTful APIs",
+            "Mobile Development",
+            "Web Development",
+            "UI/UX Design"
+          ]
+        }
+      }
+    </script>
   </body>
 </html>
